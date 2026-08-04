@@ -18,6 +18,7 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // MonitorSpec defines the desired state of Monitor
@@ -73,9 +74,9 @@ type MonitorStatus struct {
 	// +optional
 	LastError string `json:"lastError,omitempty"`
 
-	// UptimePercent is the rolling 24h uptime percentage (0-100)
+	// UptimePercent is the rolling 24h uptime percentage, stored as a string e.g. "99.50"
 	// +optional
-	UptimePercent *float64 `json:"uptimePercent,omitempty"`
+	UptimePercent string `json:"uptimePercent,omitempty"`
 
 	// CheckJobName is the name of the CronJob managing this monitor's checks
 	// +optional
@@ -115,5 +116,8 @@ type MonitorList struct {
 }
 
 func init() {
-	SchemeBuilder.Register(&Monitor{}, &MonitorList{})
+	SchemeBuilder.Register(func(scheme *runtime.Scheme) error {
+		scheme.AddKnownTypes(SchemeGroupVersion, &Monitor{}, &MonitorList{})
+		return nil
+	})
 }
