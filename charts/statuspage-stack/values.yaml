@@ -1,0 +1,17 @@
+global:
+  environment: staging
+
+statuspage-operator:
+  enabled: true
+  replicaCount: 1
+
+statuspage-api:
+  enabled: true
+  replicaCount: 2
+  env:
+    dbHost: "postgres"
+    dbPort: "5432"
+
+statuspage-frontend:
+  enabled: true
+  replicaCount: 2

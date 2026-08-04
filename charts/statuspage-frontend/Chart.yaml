@@ -1,0 +1,6 @@
+apiVersion: v2
+name: statuspage-frontend
+description: Helm chart for StatusPage React Frontend SPA
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

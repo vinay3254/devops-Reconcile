@@ -1,0 +1,20 @@
+global:
+  environment: production
+
+statuspage-operator:
+  replicaCount: 2
+  image:
+    tag: "v1.0.0"
+
+statuspage-api:
+  replicaCount: 3
+  image:
+    tag: "v1.0.0"
+  env:
+    dbHost: "postgres-prod.statuspage-system.svc.cluster.local"
+    jwtSecret: "prod-vault-secret-key-2026"
+
+statuspage-frontend:
+  replicaCount: 3
+  image:
+    tag: "v1.0.0"

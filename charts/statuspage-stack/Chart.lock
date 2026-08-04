@@ -1,0 +1,12 @@
+dependencies:
+- name: statuspage-operator
+  repository: file://../statuspage-operator
+  version: 0.1.0
+- name: statuspage-api
+  repository: file://../statuspage-api
+  version: 0.1.0
+- name: statuspage-frontend
+  repository: file://../statuspage-frontend
+  version: 0.1.0
+digest: sha256:214d2b9f0f01cc40e9d39279a6546e0b7196d2c138d94d345637625932abb7ee
+generated: "2026-08-04T17:01:25.769340251Z"

@@ -1,0 +1,81 @@
+name: StatusPage CI/CD Pipeline
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  test-operator-and-api:
+    name: Test Operator & API Services
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Test Operator
+        run: |
+          cd operator
+          go vet ./...
+
+      - name: Build & Test API
+        run: |
+          cd api
+          go mod tidy
+          go build -o api ./cmd/main.go
+
+  build-frontend:
+    name: Build Frontend SPA
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install & Build React Bundle
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+
+  helm-lint:
+    name: Helm Chart Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.14.0
+
+      - name: Lint Helm Charts
+        run: |
+          helm lint charts/statuspage-operator
+          helm lint charts/statuspage-api
+          helm lint charts/statuspage-frontend
+
+  docker-build:
+    name: Docker Image Build Validation
+    runs-on: ubuntu-latest
+    needs: [test-operator-and-api, build-frontend]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build API Docker Image
+        run: docker build -t statuspage-api:latest ./api
+
+      - name: Build Frontend Docker Image
+        run: docker build -t statuspage-frontend:latest ./frontend

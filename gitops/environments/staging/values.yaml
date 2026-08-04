@@ -1,0 +1,20 @@
+global:
+  environment: staging
+
+statuspage-operator:
+  replicaCount: 1
+  image:
+    tag: "staging-latest"
+
+statuspage-api:
+  replicaCount: 2
+  image:
+    tag: "staging-latest"
+  env:
+    dbHost: "postgres-staging.statuspage-system.svc.cluster.local"
+    jwtSecret: "staging-jwt-secret-key-2026"
+
+statuspage-frontend:
+  replicaCount: 2
+  image:
+    tag: "staging-latest"

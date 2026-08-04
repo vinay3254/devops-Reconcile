@@ -1,0 +1,24 @@
+replicaCount: 2
+
+image:
+  repository: statuspage-api
+  pullPolicy: IfNotPresent
+  tag: "v1.0.0"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+env:
+  dbHost: "postgres"
+  dbPort: "5432"
+  dbName: "statuspage"
+  jwtSecret: "production-jwt-secret-key-2026"
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

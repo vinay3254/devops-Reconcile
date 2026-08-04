@@ -1,0 +1,17 @@
+apiVersion: v2
+name: statuspage-stack
+description: Umbrella Helm chart for complete StatusPage SaaS stack
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+dependencies:
+  - name: statuspage-operator
+    version: 0.1.0
+    repository: "file://../statuspage-operator"
+  - name: statuspage-api
+    version: 0.1.0
+    repository: "file://../statuspage-api"
+  - name: statuspage-frontend
+    version: 0.1.0
+    repository: "file://../statuspage-frontend"
