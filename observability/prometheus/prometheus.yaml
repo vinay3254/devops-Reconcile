@@ -1,0 +1,12 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'statuspage-api'
+    static_configs:
+      - targets: ['localhost:8080', 'statuspage-api.statuspage-system.svc.cluster.local:8080']
+
+  - job_name: 'statuspage-operator'
+    static_configs:
+      - targets: ['statuspage-operator.statuspage-system.svc.cluster.local:8081']

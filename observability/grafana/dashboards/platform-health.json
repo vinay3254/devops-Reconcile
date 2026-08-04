@@ -1,0 +1,48 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "title": "API Request Rate (ops/sec)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "rate(statuspage_api_requests_total[1m])",
+          "legendFormat": "{{method}} {{endpoint}} ({{status}})"
+        }
+      ]
+    },
+    {
+      "title": "Active Managed Monitors",
+      "type": "stat",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum(statuspage_monitors_count)",
+          "legendFormat": "Total Monitors"
+        }
+      ]
+    },
+    {
+      "title": "Monitor Downtime Events",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 8 },
+      "targets": [
+        {
+          "expr": "sum(increase(statuspage_downtime_events_total[5m])) by (tenant_id)",
+          "legendFormat": "Tenant {{tenant_id}}"
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 38,
+  "title": "StatusPage Platform Health",
+  "uid": "statuspage-platform-health"
+}
