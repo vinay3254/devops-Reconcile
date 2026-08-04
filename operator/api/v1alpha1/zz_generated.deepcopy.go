@@ -106,11 +106,6 @@ func (in *MonitorStatus) DeepCopyInto(out *MonitorStatus) {
 		in, out := &in.LastCheck, &out.LastCheck
 		*out = (*in).DeepCopy()
 	}
-	if in.UptimePercent != nil {
-		in, out := &in.UptimePercent, &out.UptimePercent
-		*out = new(float64)
-		**out = **in
-	}
 	if in.Conditions != nil {
 		in, out := &in.Conditions, &out.Conditions
 		*out = make([]v1.Condition, len(*in))

@@ -161,7 +161,7 @@ kubectl create configmap "$CM_NAME" \
 echo "Check complete: URL=$URL result=$RESULT code=$HTTP_CODE latency=${LATENCY}ms"
 `, monitor.Spec.URL, monitor.Spec.ExpectedStatus, timeout, monitor.Namespace, configMapName)
 
-	ttlSeconds := int32(3600)      // keep completed jobs for 1h
+	ttlSeconds := int32(3600) // keep completed jobs for 1h
 	failedJobsLimit := int32(3)
 	successfulJobsLimit := int32(3)
 	backoffLimit := int32(0) // don't retry — just wait for next schedule
@@ -273,8 +273,8 @@ func configMapNameFor(m *monitoringv1alpha1.Monitor) string {
 
 func labelsFor(m *monitoringv1alpha1.Monitor) map[string]string {
 	return map[string]string{
-		"app.kubernetes.io/name":       "statuspage-operator",
-		"app.kubernetes.io/component":  "monitor-checker",
+		"app.kubernetes.io/name":           "statuspage-operator",
+		"app.kubernetes.io/component":      "monitor-checker",
 		"monitoring.statuspage.io/monitor": m.Name,
 	}
 }
